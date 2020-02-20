@@ -1,0 +1,79 @@
+\hypertarget{states_8h}{}\section{source/states.h File Reference}
+\label{states_8h}\index{source/states.\+h@{source/states.\+h}}
+
+
+Program for the elevator door.  
+
+
+{\ttfamily \#include \char`\"{}hardware.\+h\char`\"{}}\newline
+Include dependency graph for states.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{states_8h_adc6e5733fc3c22f0a7b2914188c49c90}\label{states_8h_adc6e5733fc3c22f0a7b2914188c49c90}} 
+enum \hyperlink{states_8h_adc6e5733fc3c22f0a7b2914188c49c90}{state} \{ \newline
+{\bfseries S\+T\+A\+R\+T\+\_\+\+UP}, 
+{\bfseries I\+D\+LE}, 
+{\bfseries E\+M\+E\+R\+G\+E\+N\+C\+Y\+\_\+\+S\+T\+OP}, 
+{\bfseries D\+O\+O\+R\+\_\+\+O\+P\+EN}, 
+\newline
+{\bfseries M\+O\+V\+E\+\_\+\+UP}, 
+{\bfseries M\+O\+V\+E\+\_\+\+D\+O\+WN}
+ \}\begin{DoxyCompactList}\small\item\em State type used in {\ttfamily states}. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{states_8h_a5efec3400906057f53a9636073a878bf}{obstruction\+\_\+or\+\_\+emergencystop\+\_\+active} (void)
+\begin{DoxyCompactList}\small\item\em Program for obstruction or emergencystop active while the elevator is on a floor. \end{DoxyCompactList}\item 
+void \hyperlink{states_8h_a70d454ec7aaecf471303b18cb791398b}{states} (void)
+\begin{DoxyCompactList}\small\item\em Program for the different states the elevetor can be in. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Program for the elevator door. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{states_8h_a5efec3400906057f53a9636073a878bf}\label{states_8h_a5efec3400906057f53a9636073a878bf}} 
+\index{states.\+h@{states.\+h}!obstruction\+\_\+or\+\_\+emergencystop\+\_\+active@{obstruction\+\_\+or\+\_\+emergencystop\+\_\+active}}
+\index{obstruction\+\_\+or\+\_\+emergencystop\+\_\+active@{obstruction\+\_\+or\+\_\+emergencystop\+\_\+active}!states.\+h@{states.\+h}}
+\subsubsection{\texorpdfstring{obstruction\+\_\+or\+\_\+emergencystop\+\_\+active()}{obstruction\_or\_emergencystop\_active()}}
+{\footnotesize\ttfamily void obstruction\+\_\+or\+\_\+emergencystop\+\_\+active (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Program for obstruction or emergencystop active while the elevator is on a floor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & No input argument(s) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 6 of file states.\+c.
+
+\mbox{\Hypertarget{states_8h_a70d454ec7aaecf471303b18cb791398b}\label{states_8h_a70d454ec7aaecf471303b18cb791398b}} 
+\index{states.\+h@{states.\+h}!states@{states}}
+\index{states@{states}!states.\+h@{states.\+h}}
+\subsubsection{\texorpdfstring{states()}{states()}}
+{\footnotesize\ttfamily void states (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Program for the different states the elevetor can be in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em void} & No input argument(s) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 21 of file states.\+c.
+

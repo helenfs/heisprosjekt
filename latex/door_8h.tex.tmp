@@ -1,0 +1,34 @@
+\hypertarget{door_8h}{}\section{source/door.h File Reference}
+\label{door_8h}\index{source/door.\+h@{source/door.\+h}}
+
+
+Program for the elevator door.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{door_8h_adc6e5733fc3c22f0a7b2914188c49c90}\label{door_8h_adc6e5733fc3c22f0a7b2914188c49c90}} 
+enum {\bfseries state} \{ \newline
+{\bfseries I\+D\+LE}, 
+{\bfseries D\+O\+O\+R\+\_\+\+O\+P\+EN}, 
+{\bfseries F\+L\+O\+OR}, 
+{\bfseries F\+L\+O\+O\+R\+\_\+\+UP}, 
+\newline
+{\bfseries F\+L\+O\+O\+R\+\_\+\+D\+O\+WN}, 
+{\bfseries O\+B\+S\+T\+R\+U\+C\+T\+I\+ON}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{door_8h_a36da52bf2f0fb2250a853881e99784d3}\label{door_8h_a36da52bf2f0fb2250a853881e99784d3}} 
+void {\bfseries door} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Program for the elevator door. 
+
