@@ -11,6 +11,8 @@
 #define HARDWARE_H
 #define HARDWARE_NUMBER_OF_FLOORS 4
 
+#include <stdlib.h>
+
 /**
  * @brief Movement type used in @c hardware_command_movement.
  */
@@ -38,6 +40,7 @@ typedef enum {
  * @return 0 on success. Non-zero for failure.
  */
 int hardware_init();
+
 
 /**
  * @brief Commands the elevator to either move up or down,

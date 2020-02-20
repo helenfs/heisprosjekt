@@ -2,25 +2,13 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "queue.h"
-//#include "states.h"
+#include "states.h"
 #include "hardware.h"
+#include "floor.h"
 
-/*
 
-static void clear_all_order_lights(){
-    HardwareOrder order_types[3] = {
-        HARDWARE_ORDER_UP,
-        HARDWARE_ORDER_INSIDE,
-        HARDWARE_ORDER_DOWN
-    };
 
-    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
-        for(int i = 0; i < 3; i++){
-            HardwareOrder type = order_types[i];
-            hardware_command_order_light(f, type, 0);
-        }
-    }
-}
+
 
 static void sigint_handler(int sig){
     (void)(sig);
@@ -28,27 +16,30 @@ static void sigint_handler(int sig){
     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
     exit(0);
 }
-*/
+
 int p_queue[12];
 int queue_matrix[4][3];
 
+
+
 int main(){
-    if(hardware_init()!=0) {            // Denne må være øverst!
-        perror("Heisen er ikke i definert tilstand");
+    int error = hardware_init();
+    if(error != 0){
+        fprintf(stderr, "Heisen er ikke i definert tilstand\n");
+        exit(1);
     }
+    clear_all_order_lights();
+
     
+    
+    signal(SIGINT, sigint_handler);
+
+    states();
 
 
-
-
-    order_queue_matrix();
+    
+       // order_queue_matrix(3,4);
+        printf("\n");
  
-
-
-    /*for (int i = 0; i < 4*3; ++i){
-		queueVector[i] = 0;
-		printf("%d", queueVector[i]);
-	}
-    */
     return 0;
 }
