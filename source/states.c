@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "hardware.h"
+#include "floor.h"
 
 // void obstruction_or_emergencystop_active(void){
 //     time_t time=clock();
@@ -71,13 +72,15 @@ void obstruction_active(void){
     }
  }
         
-        
-    //     hardware_read_order (i, order_type);        //noe med for løkke     
-    //     hardware_command_door_open(1);
-
+     
 void states(void){
     State current_state = START_UP;
+    int current_floor;
     while(1){
+        for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; ++i){
+                current_floor = floor_indicator(i);
+                //delete_order(ordered_floor, order_type, i);
+            }        
         switch (current_state)
         {
         case START_UP: 
@@ -94,9 +97,18 @@ void states(void){
             printf("idle\n"); 
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             hardware_command_door_open(0);
-            if (hardware_read_stop_signal()){current_state = EMERGENCY_STOP;}
+            if (hardware_read_stop_signal()){
+                poll_buttons();
+                current_state = EMERGENCY_STOP;
+            }
             poll_buttons();
+            
+            if(check_operated_order(current_floor)==0) {current_state=MOVE_UP;}
+            if (check_operated_order(current_floor)==1){current_state=MOVE_DOWN;}
+            if (check_operated_order(current_floor)==2){current_state=IDLE;}
 
+
+            //husk å legge til en fUnksjon med delete_order();
             break;
 
         case MOVE_UP:
@@ -105,7 +117,13 @@ void states(void){
             hardware_command_movement(HARDWARE_MOVEMENT_UP);
             poll_buttons();
             if (hardware_read_stop_signal()){current_state = EMERGENCY_STOP;}
-            //if(bestilling i current-etasje) {door_open}
+
+            for(int i=0; i<HARDWARE_NUMBER_OF_FLOORS;++i){
+                if(i==current_floor && (queue_matrix[i][HARDWARE_ORDER_UP]==1 || queue_matrix[i][HARDWARE_ORDER_DOWN]==1 || queue_matrix[i][HARDWARE_ORDER_INSIDE])) {
+                    hardware_command_movement(HARDWARE_MOVEMENT_STOP);                      //Hva om noen inni heisen bestiller en etasje??
+                    current_state=DOOR_OPEN;
+                }
+            }
             break;
 
         case MOVE_DOWN:
@@ -114,10 +132,13 @@ void states(void){
             hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
             if (hardware_read_stop_signal()){current_state = EMERGENCY_STOP;}
             poll_buttons();
-            // if(floor==ordered_floor && current_direction==ordered_direction) {
-            //     hardware_command_movement(HARDWARE_MOVEMENT_STOP); 
-            //     current_state=DOOR_OPEN;
-            //     }
+
+            for(int i=0; i<HARDWARE_NUMBER_OF_FLOORS;++i){
+                if(i==current_floor && queue_matrix[i][HARDWARE_MOVEMENT_DOWN]==1) {
+                    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+                    current_state=DOOR_OPEN;
+                }
+            }
             break;
 
         case DOOR_OPEN:
@@ -140,10 +161,9 @@ void states(void){
                     obstruction_active();
                 }
             }
-           //FJERNE ALT LYS
             clear_all_order_lights();
             hardware_command_stop_light(0);
-            empty_matrix ();         //KØMATRISE SETTES TIL 0 = TØMMMES
+            empty_all_orders ();  
             current_state=IDLE;
 			break;
        
@@ -153,13 +173,3 @@ void states(void){
     }
 }
 
-/*
-set_timer(3)
-int timer_active = 1;
-time_t timestamp = clock();
-is_time_elapsed(void)
-if(clock - timestamp > 0)
-return 1
-else
-return 0
-*/

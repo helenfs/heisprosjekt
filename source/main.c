@@ -17,9 +17,6 @@ static void sigint_handler(int sig){
     exit(0);
 }
 
-int p_queue[12];
-int queue_matrix[4][3];
-
 
 
 int main(){
@@ -28,18 +25,13 @@ int main(){
         fprintf(stderr, "Heisen er ikke i definert tilstand\n");
         exit(1);
     }
-    clear_all_order_lights();
-
-    
-    
+    clear_all_order_lights();    
     signal(SIGINT, sigint_handler);
+
 
     states();
 
 
-    
-       // order_queue_matrix(3,4);
-        printf("\n");
  
     return 0;
 }
