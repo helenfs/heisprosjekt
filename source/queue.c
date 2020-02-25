@@ -40,40 +40,14 @@ void delete_order(int floor, HardwareOrder order_type){
 
 
 
-
-int check_operated_order(int current_floor){  	
-    
-	
-	switch (current_floor){
-        case 0:
-            for(int i= 0; i < HARDWARE_NUMBER_OF_FLOORS;++i){
-                if (queue_matrix[i][HARDWARE_ORDER_UP]==1){
-					return 0;
-                }
-				if (queue_matrix[i][HARDWARE_ORDER_INSIDE]==1){
-					if(current_floor==i){return 2;}
-					return 0;
-				}
-				if(queue_matrix[i][HARDWARE_ORDER_DOWN]==1){
-					return 0;
-				}
-            }
-			return 2;
-            break;
-        // case 1:
-
-        //     break;
-        // case 2:
-
-        //     break;
-        // case 3:
-
-        //     break;
-        default:
-             return 2;
-    }
+int queue_order_above(int floor, HardwareMovement motor_direction){
+	for(int f=floor; f< HARDWARE_NUMBER_OF_FLOORS; ++f){
+		if(queue_matrix[f][motor_direction]){
+			return 1;
+		}
+	}
+	return 0;
 }
-
 
 
 
