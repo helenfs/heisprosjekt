@@ -46,14 +46,17 @@ void emergency_stop_active(){
     
 void obstruction_active(void){
     time_t time=clock();
-    while (hardware_read_obstruction_signal()){
-        time =clock();
-        hardware_command_door_open(1);
-        printf("tiden skal starte\n");
-     }
-    while (difftime(clock(),time) <= 3000000.0/2){      
+    
+    
+    while (difftime(clock(),time) <= 3000000.0/2){     
+        //time=clock();
         printf("dør åpen i 3 sek\n");
         hardware_command_door_open(1);
+        while (hardware_read_obstruction_signal()){
+            time =clock();
+            hardware_command_door_open(1);
+            printf("tiden skal starte\n");
+        }
      }
      hardware_command_door_open(0);
  }     
@@ -82,11 +85,10 @@ void states(void){
     int current_floor;
     int motor_direction;
     while(1){
-        for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; ++i){
-                current_floor = floor_indicator(i);
+
+        current_floor = floor_indicator();
                 //delete_order(ordered_floor, order_type, i);
-                
-            }        
+                   
         switch (current_state)
         {
         case START_UP: 
@@ -97,6 +99,7 @@ void states(void){
             }
             else if (hardware_read_floor_sensor(0)){
                 motor_direction = HARDWARE_MOVEMENT_UP;
+                current_floor=0;
                 current_state = IDLE;
                 }
             break;
@@ -120,19 +123,46 @@ void states(void){
             break;
 
         case MOVE_UP:
-            printf("moveup\n");
+            printf("%d\n",current_floor);
             hardware_command_door_open(0);
             hardware_command_movement(HARDWARE_MOVEMENT_UP);
             poll_buttons();
             if (hardware_read_stop_signal()){current_state = EMERGENCY_STOP;}
 
-            for(int i=0; i<HARDWARE_NUMBER_OF_FLOORS;++i){
-                if(i==current_floor && (queue_matrix[i][HARDWARE_ORDER_UP]==1 || queue_matrix[i][HARDWARE_ORDER_DOWN]==1 || queue_matrix[i][HARDWARE_ORDER_INSIDE])) {
-                    hardware_command_movement(HARDWARE_MOVEMENT_STOP);                      //Hva om noen inni heisen bestiller en etasje??
-                    current_state=DOOR_OPEN;
-                }
+            if(queue_order_above(current_floor,HARDWARE_MOVEMENT_UP)){
+                hardware_command_movement(HARDWARE_MOVEMENT_UP);
+            }
+                if(hardware_read_floor_sensor(get_ordered_floor(current_floor,HARDWARE_MOVEMENT_UP))){
+                    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+                    printf("heiehieheihieh");
+                    //current_state=DOOR_OPEN;
+                
             }
             break;
+
+
+            //while (current_floor==1){hardware_command_movement(HARDWARE_MOVEMENT_STOP);}
+            // while(queue_order_above(current_floor, HARDWARE_MOVEMENT_UP)){
+            //     hardware_command_movement(HARDWARE_MOVEMENT_UP);
+            //     printf("%d går oppover\n", current_floor);
+            //     current_floor=floor_indicator();
+            //     if(hardware_read_floor_sensor(current_floor)){
+            //         printf("%d stoppp\n",current_floor);
+            //         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+            //         current_state=DOOR_OPEN;
+            //         break;
+            //     }
+            // }
+            // printf("%d hei\n",current_floor);
+            // hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+            // // for(int i=0; i<HARDWARE_NUMBER_OF_FLOORS;++i){
+            // //     if(i==current_floor && (queue_matrix[i][HARDWARE_ORDER_UP]==1 || queue_matrix[i][HARDWARE_ORDER_DOWN]==1 || queue_matrix[i][HARDWARE_ORDER_INSIDE])) {
+            // //         hardware_command_movement(HARDWARE_MOVEMENT_STOP);                      //Hva om noen inni heisen bestiller en etasje??
+            // //         current_state=DOOR_OPEN;
+            // //     }
+            // // }
+        
+            // break;
 
         case MOVE_DOWN:
             printf("movedown\n");

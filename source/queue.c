@@ -40,8 +40,8 @@ void delete_order(int floor, HardwareOrder order_type){
 
 
 
-int queue_order_above(int floor, HardwareMovement motor_direction){
-	for(int f=floor; f< HARDWARE_NUMBER_OF_FLOORS; ++f){
+int queue_order_above(int current_floor, HardwareMovement motor_direction){
+	for(int f=current_floor; f< HARDWARE_NUMBER_OF_FLOORS; ++f){
 		if(queue_matrix[f][motor_direction]){
 			return 1;
 		}

@@ -11,4 +11,4 @@ void empty_all_orders();
 void add_order(int i, HardwareOrder order);
 void delete_order(int floor, HardwareOrder order);
 
-int queue_order_above(int floor, HardwareMovement motor_direction);
+int queue_order_above(int current_floor, HardwareMovement motor_direction);
