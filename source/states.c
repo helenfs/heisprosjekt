@@ -32,14 +32,15 @@ void clear_all_order_lights(){
 void emergency_stop_active(){
     //time_t time = clock();
     while(hardware_read_stop_signal()){
-       // time = clock();
+       //time = clock();
         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         hardware_command_stop_light(1);
         printf("read stop signal\n");
     }
+    hardware_command_stop_light(0);
     // while (difftime(clock(),time) <= 3000000.0){          
-    //     //hardware_command_stop_light(1);
-    //     //printf("time digff\n");
+    //      hardware_command_stop_light(1);
+    //      printf("time digff\n");
     // }
 }
     
@@ -48,10 +49,13 @@ void obstruction_active(void){
     while (hardware_read_obstruction_signal()){
         time =clock();
         hardware_command_door_open(1);
+        printf("tiden skal starte\n");
      }
-    while (difftime(clock(),time) <= 3000000.0){
+    while (difftime(clock(),time) <= 3000000.0/2){      
+        printf("dør åpen i 3 sek\n");
         hardware_command_door_open(1);
      }
+     hardware_command_door_open(0);
  }     
 
 
@@ -76,21 +80,25 @@ void obstruction_active(void){
 void states(void){
     State current_state = START_UP;
     int current_floor;
+    int motor_direction;
     while(1){
         for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; ++i){
                 current_floor = floor_indicator(i);
                 //delete_order(ordered_floor, order_type, i);
+                
             }        
         switch (current_state)
         {
         case START_UP: 
             printf("startup\n");
             hardware_command_door_open(0);
-            if (hardware_read_stop_signal()){current_state = EMERGENCY_STOP;}      
             if (!hardware_read_floor_sensor(0)){
                 hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
             }
-            else if (hardware_read_floor_sensor(0)){current_state = IDLE;}
+            else if (hardware_read_floor_sensor(0)){
+                motor_direction = HARDWARE_MOVEMENT_UP;
+                current_state = IDLE;
+                }
             break;
 
         case IDLE:
@@ -103,9 +111,9 @@ void states(void){
             }
             poll_buttons();
             
-            if(check_operated_order(current_floor)==0) {current_state=MOVE_UP;}
-            if (check_operated_order(current_floor)==1){current_state=MOVE_DOWN;}
-            if (check_operated_order(current_floor)==2){current_state=IDLE;}
+            if(queue_order_above(current_floor, motor_direction)==1) {current_state=MOVE_UP;}
+            // if (queue_order_below(current_floor, motor_direction)==1){current_state=MOVE_DOWN;}
+            // if (!queue_order_above(current_floor, motor_direction) && !queue_order_below(current_floor, motor_direction)){current_state=IDLE;}
 
 
             //husk å legge til en fUnksjon med delete_order();
@@ -158,6 +166,7 @@ void states(void){
             for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; ++i){
                 if (hardware_read_floor_sensor(i)){
                     hardware_command_door_open(1);
+                    printf("åpne dør\n");
                     obstruction_active();
                 }
             }
