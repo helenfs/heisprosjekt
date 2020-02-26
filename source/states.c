@@ -61,7 +61,8 @@ int obstruction_active(void){
             printf("tiden skal starte\n");
         }
      }
-     hardware_command_door_open(0);  
+    hardware_command_door_open(0);  
+    poll_buttons();
  return 1;
  }   
 
@@ -106,12 +107,12 @@ void states(void){
         case START_UP: 
             printf("startup\n");
             hardware_command_door_open(0);
-            if (!hardware_read_floor_sensor(1)){
+            if (!hardware_read_floor_sensor(0)){
                 hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
             }
-            else if (hardware_read_floor_sensor(1)){
+            else if (hardware_read_floor_sensor(0)){
                 motor_direction.dir = HARDWARE_MOVEMENT_UP;
-                current_floor.floor=1;
+                current_floor.floor=0;
                 current_state = IDLE;
                 }
             break;
@@ -131,9 +132,15 @@ void states(void){
             //       if(queue_matrix[i][j] != 0;	
             //     }
             // }
-            if(queue_order_above(current_floor.floor, motor_direction.dir)==1) {current_state=MOVE_UP;}
+           
+                if(queue_order_above(current_floor.floor, motor_direction.dir)==1) {                    // Vi tror vi må endre dette!!
+    
+                  current_state=MOVE_UP;
+            }
+            
 
             if (queue_order_below(current_floor.floor, motor_direction.dir)==1){current_state=MOVE_DOWN;}
+
             if (!queue_order_above(current_floor.floor, motor_direction.dir) && !queue_order_below(current_floor.floor, motor_direction.dir)){current_state=IDLE;}
 
 
@@ -142,7 +149,9 @@ void states(void){
 
         case MOVE_UP:
             printf("%d\n",motor_direction.dir);
-            hardware_command_door_open(0);
+            hardware_command_door_open(0);            
+            if (hardware_read_stop_signal()){current_state = EMERGENCY_STOP;}
+
             poll_buttons();
             motor_direction.dir = HARDWARE_MOVEMENT_UP;
             if(!queue_matrix[current_floor.floor][HARDWARE_ORDER_UP] || !queue_matrix[current_floor.floor][HARDWARE_ORDER_INSIDE]){
@@ -161,8 +170,6 @@ void states(void){
                 current_state=DOOR_OPEN;
             }
 
-
-            if (hardware_read_stop_signal()){current_state = EMERGENCY_STOP;}
 
             break;
 
@@ -237,11 +244,13 @@ void states(void){
             clear_all_order_lights();
             hardware_command_stop_light(0);
             empty_all_orders ();  
-            
-            if(floor_indicator()==-1){
-                hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+            if(!queue_order_above(current_floor.floor,motor_direction.dir) || !queue_order_below(current_floor.floor,motor_direction.dir)){
                 current_state=IDLE;
             }
+            
+            // while(floor_indicator()==-1){
+            //     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+            
 			break;
        
 		default: 

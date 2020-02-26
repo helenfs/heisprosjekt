@@ -56,6 +56,9 @@ int queue_order_below(int current_floor, HardwareMovement motor_direction){
 		if(queue_matrix[f][motor_direction]){
 			return 1;
 		}
+		if(queue_matrix[f][HARDWARE_MOVEMENT_UP]){
+			
+		}
 	}
 	return 0;
 }

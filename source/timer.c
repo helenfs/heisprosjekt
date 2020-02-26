@@ -1,5 +1,4 @@
 #include "timer.h"
-#include "hardware.h"
 
 
 int waiting_time=3;

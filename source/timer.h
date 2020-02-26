@@ -1,4 +1,6 @@
 #include <time.h>
+#include "hardware.h"
+
 
 
 typedef struct {
