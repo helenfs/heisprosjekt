@@ -9,6 +9,12 @@
 #include <time.h>
 #include "queue.h"
 
+
+typedef struct{
+    int floor, dir;
+} Elevator;
+
+
 /**
  * @brief State type used in @c states
  */
@@ -36,7 +42,7 @@ void states(void);
  * @brief Program for obstruction signal
  * @param void No input argument(s)
  * */
-void obstruction_active(void);
+int obstruction_active(void);
 
 /**
  * @brief Polls the order buttons

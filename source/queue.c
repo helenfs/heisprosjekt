@@ -15,7 +15,7 @@ void empty_all_orders (){
 
 
 void add_order(int floor, HardwareOrder order){
-	for (floor=0; floor < HARDWARE_NUMBER_OF_FLOORS; floor++){
+	//for (floor=0; floor < HARDWARE_NUMBER_OF_FLOORS; floor++){
 		switch (order)
 		{
 		case HARDWARE_ORDER_UP:
@@ -30,12 +30,13 @@ void add_order(int floor, HardwareOrder order){
 		default:
 			break;
 		}
-	}
+	//}
 }
 
 
 void delete_order(int floor, HardwareOrder order_type){
 	queue_matrix[floor][order_type]=0;
+	hardware_command_order_light(floor,order_type,0);
 }
 
 
@@ -49,6 +50,15 @@ int queue_order_above(int current_floor, HardwareMovement motor_direction){
 	return 0;
 }
 
+
+int queue_order_below(int current_floor, HardwareMovement motor_direction){
+	for(int f=current_floor; f>=0; --f){
+		if(queue_matrix[f][motor_direction]){
+			return 1;
+		}
+	}
+	return 0;
+}
 
 
 
