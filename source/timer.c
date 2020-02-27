@@ -13,11 +13,15 @@ void set_timer(){
 
 
 int check_timer(){
-	if(our_timer.time + waiting_time > time(NULL) || hardware_read_stop_signal() || hardware_read_obstruction_signal()) {
+	if(time(NULL) - our_timer.time <3 || hardware_read_stop_signal() || hardware_read_obstruction_signal()) { //our_timer.time + waiting_time > time(NULL)
 		if(hardware_read_stop_signal() || hardware_read_obstruction_signal()) {
 			set_timer();
         }
 		return 1;
 	}
     return 0;
+}
+
+int check_time_difference(){
+	return time(NULL) - our_timer.time;
 }

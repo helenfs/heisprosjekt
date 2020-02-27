@@ -12,12 +12,28 @@ int floor_indicator(){
     return -1;
 }
 
-int get_ordered_floor(int current_floor, HardwareMovement motor_direction){
+int get_ordered_above(int current_floor){
     for(int i=current_floor;i<HARDWARE_NUMBER_OF_FLOORS;i++){
-        if(queue_matrix[i][motor_direction]){
+        for(int j = 0; j < 3; ++j){
+            if(queue_matrix[i][j]){
             printf("%d ordered etasje: \n",i);
             return i;
+            }
         }
+        
+    }
+    return -1;
+}
+
+int get_ordered_below(int current_floor){
+    for(int i=current_floor;i>=0;i--){
+        for(int j = 0; j < 3; ++j){
+            if(queue_matrix[i][j]){
+            printf("%d ordered etasje: \n",i);
+            return i;
+            }
+        }
+        
     }
     return -1;
 }

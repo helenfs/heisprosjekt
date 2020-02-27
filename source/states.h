@@ -10,9 +10,6 @@
 #include "queue.h"
 
 
-typedef struct{
-    int floor, dir;
-} Elevator;
 
 
 /**
@@ -22,13 +19,6 @@ typedef enum {         //Nødvendig med typedef før enum?
     START_UP, IDLE, EMERGENCY_STOP, DOOR_OPEN, MOVE_UP, MOVE_DOWN
 } State;
 
-
-/**
- * @brief Program for obstruction or
- emergencystop active while the elevator is on a floor
- * @param void No input argument(s)
- */
-void obstruction_or_emergencystop_active(void);
 
 
 /**
@@ -42,7 +32,7 @@ void states(void);
  * @brief Program for obstruction signal
  * @param void No input argument(s)
  * */
-int obstruction_active(void);
+int door_active(void);
 
 /**
  * @brief Polls the order buttons

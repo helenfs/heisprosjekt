@@ -5,4 +5,5 @@
 
 
 int floor_indicator();
-int get_ordered_floor(int current_floor, HardwareMovement motor_direction);
+int get_ordered_above(int current_floor);
+int get_ordered_below(int current_floor);

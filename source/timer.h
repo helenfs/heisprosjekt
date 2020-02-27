@@ -12,3 +12,4 @@ typedef struct {
 
 void set_timer();
 int check_timer();
+int check_time_difference();
