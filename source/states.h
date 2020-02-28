@@ -1,14 +1,18 @@
 /**
  * @file
  * @brief Program for the elevator door.
- *
- * 
  */
 #include "hardware.h"
 #include <stdio.h>
 #include <time.h>
-#include "queue.h"
 
+#include "queue.h"
+#include "light.h"
+#include "floor.h"
+#include "timer.h"
+
+#define motor_up 1
+#define motor_down -1
 
 
 
@@ -28,22 +32,5 @@ typedef enum {         //Nødvendig med typedef før enum?
 void states(void);
 
 
-/**
- * @brief Program for obstruction signal
- * @param void No input argument(s)
- * */
-int door_active(void);
 
-/**
- * @brief Polls the order buttons
- * @param void No input argument(s)
- */
-void poll_buttons(void);
 
-/**
- * @brief PProgram for obstruction signal
- * @param void No input argument(s)
- */
-void emergency_stop_active();
-
-void clear_all_order_lights();

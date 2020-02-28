@@ -6,9 +6,7 @@ void empty_all_orders (){
 	for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; ++i){
 		for (int j = 0; j < 3; ++j) {
 			queue_matrix[i][j] = 0;	
-			printf("%d ", queue_matrix[i][j]);
 		}
-		printf("\n");
 	}
 }
 
