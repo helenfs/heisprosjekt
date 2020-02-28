@@ -35,7 +35,7 @@ int get_ordered_below(int current_floor){
         }
         
     }
-    return -1;
+    return 4;
 }
 
 

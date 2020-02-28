@@ -45,7 +45,7 @@ int door_active(void){
     
     
     while (check_timer()){           //difftime(clock(),time) <= 3000000.0
-        printf("dør åpen i 3 sek\n");
+        printf("dør åpen i 88880k\n");
         hardware_command_door_open(1);
         poll_buttons();
         while (hardware_read_obstruction_signal()){
