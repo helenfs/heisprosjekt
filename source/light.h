@@ -24,4 +24,7 @@ void poll_buttons(void);
 void emergency_stop_active();
 
 
+/**
+ * @brief Clear all the order lights
+ */
 void clear_all_order_lights();
