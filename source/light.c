@@ -19,15 +19,12 @@ void emergency_stop_active(){
     while(hardware_read_stop_signal()){
         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         hardware_command_stop_light(1);
-        printf("read stop signal\n");
     }
     hardware_command_stop_light(0);
 }
     
 int door_active(void){
-    //set_timer();
     while (check_timer()){          
-        printf("dør åpen i 3 sek\n");
         hardware_command_door_open(1);
         poll_buttons();
         while (hardware_read_obstruction_signal() || hardware_read_stop_signal()){
@@ -40,7 +37,6 @@ int door_active(void){
                 clear_all_order_lights();
             }
             hardware_command_stop_light(0);
-            printf("tiden skal starte\n");
         }
     }
     hardware_command_door_open(0);  
