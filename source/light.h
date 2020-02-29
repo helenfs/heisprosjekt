@@ -1,5 +1,5 @@
 /**
- * @brief Sets the light in the elevator system
+ * @brief Sets the light on the elevator system
  */
 
 #include <time.h>
@@ -10,7 +10,7 @@
 #include "floor.h"
 
 /**
- * @brief Program for obstruction signal
+ * @brief Program for the door and obstruction signal
  * @param void No input argument(s)
  * */
 int door_active(void);
@@ -22,7 +22,7 @@ int door_active(void);
 void poll_buttons(void);
 
 /**
- * @brief PProgram for obstruction signal
+ * @brief Program for emergency stop button
  * @param void No input argument(s)
  */
 void emergency_stop_active();
