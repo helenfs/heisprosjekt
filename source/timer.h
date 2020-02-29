@@ -16,6 +16,6 @@ void set_timer();
 /**
  * @brief Checks if the timer have counted x seconds from the start time
  * @param void No input argument(s)
- * @return 1 haven't counted x seconds and 0 if the timer have counted x seconds
+ * @return 0 if the timer have counted x seconds; 1 if not.
  * */
 int check_timer();
