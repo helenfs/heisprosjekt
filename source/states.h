@@ -1,7 +1,8 @@
 /**
  * @file
- * @brief Program for the elevator door.
+ * @brief Final state machine (FSM) for the elevator.
  */
+
 #include "hardware.h"
 #include <stdio.h>
 #include <time.h>
@@ -17,9 +18,9 @@
 
 
 /**
- * @brief State type used in @c states
+ * @brief Different state types used in @c states
  */
-typedef enum {         //Nødvendig med typedef før enum?
+typedef enum {         
     START_UP, IDLE, EMERGENCY_STOP, DOOR_OPEN, MOVE_UP, MOVE_DOWN
 } State;
 
