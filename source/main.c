@@ -5,14 +5,8 @@
 #include "states.h"
 
 
-
-
-
-
-
 static void sigint_handler(int sig) {
    (void)(sig);
-   printf("Terminating elevator\n");
    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
    exit(0);
 }
@@ -22,7 +16,7 @@ static void sigint_handler(int sig) {
 int main(){
     
     int error = hardware_init();
-    if(error != 0){
+    if(error != 0) {
        fprintf(stderr, "Heisen er ikke i definert tilstand\n");
        exit(1);
     }
@@ -34,5 +28,5 @@ int main(){
     
    states();
 
-    return 0;
+   return 0;
 }
