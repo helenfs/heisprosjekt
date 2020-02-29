@@ -1,8 +1,7 @@
 #include "queue.h"
-#include <stdio.h>
 
 
-void empty_all_orders (){
+void empty_all_orders (void){
 	for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; ++i){
 		for (int j = 0; j < 3; ++j) {
 			queue_matrix[i][j] = 0;	
@@ -13,7 +12,6 @@ void empty_all_orders (){
 
 
 void add_order(int floor, HardwareOrder order){
-	//for (floor=0; floor < HARDWARE_NUMBER_OF_FLOORS; floor++){
 		switch (order)
 		{
 		case HARDWARE_ORDER_UP:
@@ -28,7 +26,6 @@ void add_order(int floor, HardwareOrder order){
 		default:
 			break;
 		}
-	//}
 }
 
 
@@ -54,18 +51,6 @@ int queue_order_below(int current_floor, HardwareMovement motor_direction){
 		if(queue_matrix[f][motor_direction]){
 			return 1;
 		}
-		if(queue_matrix[f][HARDWARE_MOVEMENT_UP]){
-			
-		}
 	}
 	return 0;
 }
-
-
-
-     //   if (hardware_read_floor_sensor(i)) {
-
-			//trenger funksjon add_order(queue_matrix) som returnerer den opdaterte queue_matrix
-
-//int hardware_read_order(int floor, HardwareOrder order_type) 			
-//void hardware_command_order_light(int floor, HardwareOrder order_type, int  on) 		returnerer bestilling (etasje, ordre, skru på lys). 
