@@ -1,9 +1,10 @@
-#include <time.h>
-#include "hardware.h"
 
 /**
  * @brief Timer to start and stop the waiting time
  * */
+#include <time.h>
+#include "hardware.h"
+
 
 
 /**
