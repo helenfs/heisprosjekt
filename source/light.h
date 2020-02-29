@@ -1,3 +1,7 @@
+/**
+ * @brief Sets the light in the elevator system
+ */
+
 #include <time.h>
 #include "hardware.h"
 
