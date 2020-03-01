@@ -1,4 +1,5 @@
 /**
+ * @file
  * @brief Checks the elevator's position and if it's any orders above or below the elevator's current floor
  * */
 #include <stdlib.h>

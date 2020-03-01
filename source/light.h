@@ -1,4 +1,5 @@
 /**
+ * @file
  * @brief Sets the light on the elevator system
  */
 

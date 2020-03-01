@@ -1,5 +1,6 @@
 
 /**
+ * @file
  * @brief Timer to start and stop the waiting time
  * */
 #include <time.h>
